@@ -62,7 +62,7 @@ public class MainWindow {
 		tltmExit.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				System.exit(1);
+				System.exit(2);
 			}
 		});
 		tltmExit.setText("EXIT");
