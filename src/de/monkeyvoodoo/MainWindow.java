@@ -1,3 +1,4 @@
+package de.monkeyvoodoo;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
@@ -8,11 +9,13 @@ import org.eclipse.core.databinding.observable.Realm;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.widgets.Menu;
+import org.eclipse.swt.widgets.MenuItem;
 
 
 public class MainWindow {
 	protected Shell shell;
-	private ToolBar toolBar;
+	Display display;
 
 	/**
 	 * Launch the application.
@@ -36,7 +39,7 @@ public class MainWindow {
 	 * Open the window.
 	 */
 	public void open() {
-		Display display = Display.getDefault();
+		display = Display.getDefault();
 		createContents();
 		shell.open();
 		shell.layout();
@@ -55,17 +58,35 @@ public class MainWindow {
 		shell.setSize(477, 292);
 		shell.setText("SWT Application");
 		
-		toolBar = new ToolBar(shell, SWT.FLAT | SWT.RIGHT);
-		toolBar.setBounds(0, 0, 434, 23);
+		Menu menu = new Menu(shell, SWT.BAR);
+		shell.setMenuBar(menu);
 		
-		ToolItem tltmExit = new ToolItem(toolBar, SWT.NONE);
-		tltmExit.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				System.exit(2);
-			}
+		MenuItem mntmHelp = new MenuItem(menu, SWT.CASCADE);
+		mntmHelp.setText("Help");
+		
+		Menu menu_1 = new Menu(mntmHelp);
+		mntmHelp.setMenu(menu_1);
+		
+		MenuItem mntmWebpage = new MenuItem(menu_1, SWT.NONE);
+		mntmWebpage.setText("Webpage");
+		
+		MenuItem mntmSupport = new MenuItem(menu_1, SWT.NONE);
+		mntmSupport.setText("Support");
+		
+		MenuItem mntmDebug = new MenuItem(menu_1, SWT.NONE);
+		mntmDebug.setText("Debug");
+		
+		MenuItem mntmAbout = new MenuItem(menu_1, SWT.NONE);
+		mntmAbout.addSelectionListener(new SelectionAdapter() {
+		    @Override
+		    public void widgetSelected(SelectionEvent e) {
+		        testAppWindow dbgShell = new testAppWindow();
+		        dbgShell.open();
+		        //System.exit(4);
+		        
+		    }
 		});
-		tltmExit.setText("EXIT");
+		mntmAbout.setText("About");
 		initDataBindings();
 
 	}
